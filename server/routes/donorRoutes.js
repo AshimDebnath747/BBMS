@@ -34,7 +34,7 @@ donorRouter.post("/login",async(req,res)=>{
                 totalBlood : donor.totalBlood,
                 bloodGroup : donor.bloodGroup,
                 lastDonated : donor.lastDonated,
-
+                role:"donor",
             }});
         }
     }catch(err){

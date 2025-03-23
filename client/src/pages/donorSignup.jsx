@@ -13,7 +13,7 @@ function DonorSignUp(){
         bloodGroup:"",
         address:"",
         lastDonated:"",
-        role:'donor',
+        role:"donor",
     })
     const {createUser} = userStore(); 
     function handleChange(e){

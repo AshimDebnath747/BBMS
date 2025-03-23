@@ -13,7 +13,7 @@ app.use('/api/donor',donorRouter);
 app.use('/api/admin',adminRouter);
 //patient router
 app.get("/",(req,res)=>{
-    res.send("Server is ready");
+    return res.send("server is ready");
 })
 
 app.listen(port,()=>{

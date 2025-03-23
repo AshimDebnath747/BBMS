@@ -33,7 +33,7 @@ function History(){
         <div>Date :{formatTime(h.date)}</div>
        </div>)
     return(
-        <div className="flex flex-col bg-gray-900 h-full justify-center items-center">
+        <div className="flex flex-col bg-gray-900 min-h-screen justify-center items-center">
             <div className="bg-gray-800 p-5 mt-6 rounded text-white w-100">
             <h3 className="font-bold text-xl text-center">Donation History</h3>
             {MapHistory}

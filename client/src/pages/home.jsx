@@ -6,10 +6,10 @@ function Home(){
     const navigate= useNavigate();
     const [donor , setDonor] = useState([]);
     useEffect(()=>{
-        if(!localStorage.getItem("user")){
-            navigate("/Login");
-        }
         setDonor(JSON.parse(localStorage.getItem("user")));
+        if(JSON.parse(localStorage.getItem("user")).role!="donor"){
+            navigate("/login");
+        }
     },[navigate,setDonor])
     function checkEligibility(){
         let date = new Date(donor.lastDonated);
@@ -33,6 +33,7 @@ function Home(){
         <div className="flex flex-col items-center justify-top dark:bg-gray-900 h-screen">
             <div className="content-center shadow-xl mt-7 text-3xl box-border p-4 text-center dark:text-white dark:bg-gray-800 rounded"><p>Welcome {donor.name}!</p>
             <p>Blood Type : {donor.bloodGroup}</p>
+            <p>Your id is : {donor.id}</p>
         <div className="content-center shadow-xl mt-4 text-3xl box-border w-lg p-4 text-center dark:text-white dark:bg-blue-500 rounded ">
             <h3>DashBoard</h3>
             <p>Total donted : {donor.totalBlood} ltr.</p>
