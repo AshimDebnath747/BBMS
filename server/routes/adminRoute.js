@@ -39,14 +39,13 @@ adminRouter.post("/login",async (req,res)=>{
     }
 })
 adminRouter.post("/donate/user",async(req,res)=>{
-    let {id , amount , date , place } = req.body;
+    let {Id , amount , date , place } = req.body;
     try{
-    const donor = await donorModel.findOne({id});
+    const donor = await donorModel.findOne({_id : Id});
+    console.log(donor);
    if(!donor) return res.status(404).json({success:false,message:"user not found"})
-    const prevAmount = donor.amount;
-     amount = amount+prevAmount;
-    const filter = {_id : id}
-const newValue = {$set : {place : place , amount : amount , date : date}}
+    const filter = {_id : Id}
+const newValue = {$push :{ donationHistory : {place : place , amount : amount , date : date}}}
       await donorModel.updateOne(filter , newValue)
       return res.status(200).json({success:true,message:"donation added!"})
     }
