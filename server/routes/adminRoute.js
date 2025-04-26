@@ -3,6 +3,7 @@ import adminModel from '../models/admin.js';
 import bcrypt from 'bcrypt';
 import { setUser } from '../service/auth.js';
 import donorModel from '../models/donor.js';
+import bloodBankModel from "../models/bloodBank.js";
 const adminRouter = express.Router();
 
 adminRouter.post("/signup",async (req,res)=>{
@@ -39,19 +40,34 @@ adminRouter.post("/login",async (req,res)=>{
     }
 })
 adminRouter.post("/donate/user",async(req,res)=>{
-    let {Id , amount , date , place } = req.body;
+    let {Id , amount , date , place , type } = req.body;
     try{
     const donor = await donorModel.findOne({_id : Id});
+    const bloodBank = await bloodBankModel.findOne({name : place});
     console.log(donor);
-   if(!donor) return res.status(404).json({success:false,message:"user not found"})
-    const filter = {_id : Id}
-const newValue = {$push :{ donationHistory : {place : place , amount : amount , date : date}}}
+    console.log(bloodBank);
+   if(!donor || !bloodBank) return res.status(404).json({success:false,message:"user not found"})
+      const filter = {_id : Id}
+      const newValue = {$push :{ donationHistory : {place : place , amount : amount , date : date}}}
       await donorModel.updateOne(filter , newValue)
+      const filter2 = {name : place}
+      const newValue2 = {$push :{donationHistory : { bloodGroup : type , amount : amount , date : date , donor :Id}}}
+      await bloodBankModel.updateOne(filter2 , newValue2)
       return res.status(200).json({success:true,message:"donation added!"})
     }
     catch(err){
        return res.status(500).json({success:false,message:"internal seever error!"})
     }
     
+})
+adminRouter.post("/bloodbank/create",async (req,res)=>{
+    const bloodBank = req.body
+    const newBloodBank = new bloodBankModel(bloodBank)
+    try{
+        newBloodBank.save()
+        return res.status(200).json({success:true,mesage:"blood bank created successfully!"})
+    }catch(err){
+        return res.status(500).json({success:false,message:err.message})
+    }
 })
 export default adminRouter;

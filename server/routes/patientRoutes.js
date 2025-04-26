@@ -38,10 +38,12 @@ patientRouter.post("/login",async(req,res)=>{
         return res.status(400).json({success:false,message:err.message});
     }
 })
-patientRouter.get("/history/:id",async (req,res)=>{
-    const {id }= req.params;
+patientRouter.get("/findblood/:type",async (req,res)=>{
+    const type =  req.params.type;
     try{
-    const data = await patientModel.findById(id);
+    const data = await patientModel.find({availableblood :{
+         bloodGroup : type,
+    }});
     if(!data){
         return res.status(404).json({success:false,message:"Not found"})
     }
