@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { useState,useEffect } from "react";
+import NavBar from "../components/navbar";
 function AdminHome(){
     const navigate = useNavigate();
     const [admin , setAdmin] = useState([]);
@@ -13,13 +14,18 @@ function AdminHome(){
     function handleDonateClick(){
         navigate("/admin/donate");
     }
+    function handleCreateBloodBankClick(){
+        navigate("/admin/bloodbank/create");
+    }
     return(
+        
         <div className="dark:bg-gray-900 h-screen flex flex-col justify-center items-center">
+            <NavBar/>
              <div className="dark:bg-gray-800 flex flex-col justify-center items-center p-4 rounded-2xl">
             <h3 className="text-white font-bold inline">Hello Admin <div className="text-pink-500 inline">{admin.name}</div></h3>
             <div className="bg-indigo-500 font-bold text-white p-4 rounded m-2">Total Donations This Month : {admin.donations} ltr.</div>
             <button className="bg-pink-500 text-white p-2 rounded-xl font-bold" onClick={()=> handleDonateClick()}>Add donation</button>
-            <button className="bg-pink-500 text-white p-2 rounded-xl mt-3 font-bold">Blood Requests</button>
+            <button className="bg-pink-500 text-white p-2 rounded-xl mt-3 font-bold" onClick={()=> handleCreateBloodBankClick()}>Blood Requests</button>
             </div>
         </div>
     )

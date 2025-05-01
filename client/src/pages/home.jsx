@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import {useState} from "react";
 import { useNavigate,Link} from "react-router";
-
+import NavBar from "../components/navbar";
 function Home(){
     const navigate= useNavigate();
     const [donor , setDonor] = useState([]);
     useEffect(()=>{
         setDonor(JSON.parse(localStorage.getItem("user")));
-        if(JSON.parse(localStorage.getItem("user")).role!="donor"){
+        if(!JSON.parse(localStorage.getItem("user"))){
             navigate("/login");
         }
     },[navigate,setDonor])
@@ -31,6 +31,7 @@ function Home(){
     }
     return(
         <div className="flex flex-col items-center justify-top dark:bg-gray-900 h-screen">
+            <NavBar></NavBar>
             <div className="content-center shadow-xl mt-7 text-3xl box-border p-4 text-center dark:text-white dark:bg-gray-800 rounded"><p>Welcome {donor.name}!</p>
             <p>Blood Type : {donor.bloodGroup}</p>
             <p>Your id is : {donor.id}</p>

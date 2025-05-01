@@ -31,6 +31,7 @@ patientRouter.post("/login",async(req,res)=>{
                 phone:patient.phone,
                 age:patient.age,
                 totalBlood : patient.totalBlood,
+                bloodGroup:patient.bloodGroup,
                 role:"patient",
             }});
         }

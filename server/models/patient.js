@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import bcrypt from 'bcrypt';
 const patientSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -29,6 +29,10 @@ const patientSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    password:{
+        type:String,
+        required : true,
+    },
     patientHistory:[{
             date:{
                 type:Date,
@@ -46,7 +50,6 @@ const patientSchema = new mongoose.Schema({
  } ],
     requestHistory:{
         type:String,
-        required:true,
     }
 },{
     timestamps:true,
