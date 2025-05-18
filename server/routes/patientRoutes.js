@@ -1,5 +1,6 @@
 import express from 'express';
 import patientModel from '../models/patient.js';
+import bloodBankModel from '../models/bloodBank.js';
 import bcrypt from 'bcrypt';
 const patientRouter = express.Router();
 import { setUser } from '../service/auth.js';
@@ -39,18 +40,16 @@ patientRouter.post("/login",async(req,res)=>{
         return res.status(400).json({success:false,message:err.message});
     }
 })
-patientRouter.get("/findblood/:type",async (req,res)=>{
+patientRouter.get("/search/:type",async (req,res)=>{
     const type =  req.params.type;
     try{
-    const data = await patientModel.find({availableblood :{
-         bloodGroup : type,
-    }});
+    const data = await bloodBankModel.find({'availableBlood.bloodGroup':type});
     if(!data){
         return res.status(404).json({success:false,message:"Not found"})
     }
-    return res.status(201).json({success:true, data :data.patientHistory});
+    return res.status(201).json({success:true, data :data});
 }catch(err){
-   return  res.status(500).json({success:false , message :"internal server error!"+err})
+   return  res.status(500).json({success:false , message :"fuck server error!"+err})
 }
 })
 

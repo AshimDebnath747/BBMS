@@ -11,6 +11,7 @@ import AdminHome from "./pages/adminHome";
 import PatientSignup from "./pages/patientSignup";
 import CreateBloodBank from "./pages/addBloodBank";
 import PatientHome from "./pages/patientHome";
+import SearchBlood from "./pages/searchBlood";
 function App() {
 
   return (
@@ -27,6 +28,7 @@ function App() {
     <Route path="/donor/history" Component={History} />
     <Route path="/admin/donate" Component={AddDonation} />
     <Route path="/admin/bloodbank/create" Component={CreateBloodBank}/>
+    <Route path="/patient/search" Component={SearchBlood}/>
     </Routes> 
      
     </>

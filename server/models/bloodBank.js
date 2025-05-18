@@ -26,6 +26,16 @@ const bloodBankSchema = new mongoose.Schema({
             default : Date.now,
         }
         }],
+        availableBlood:[{
+            bloodGroup:{
+                type : String,
+                required : true,
+            },
+            amount:{
+                type:Number,
+                required : true
+            },
+        }]
 },
 {
     timeStamps : true,
